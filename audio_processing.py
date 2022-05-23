@@ -5,19 +5,13 @@ import os
 import traceback
 
 
-
 class AudioProcessing():
     def __init__(self):
         # Initialize variables
-        # AudioSegment.ffmpeg = os.path.join(os.path.dirname(__file__), "ffmpeg", "bin")
-        # "C:\\ffmpeg\\bin"
-        # AudioSegment.converter = "C:\\ffmpeg\\bin\\ffmpeg.exe"
         AudioSegment.converter = which("ffmpeg")
-        # os.path.join(os.path.dirname(__file__), "ffmpeg", "bin")
         self.clips = []
         self.clip_names = []
         self.to_append_clips = []
-        # print("Arrived")
         self.get_audio_to_append("to_append")
 
         # print(os.getcwd())
