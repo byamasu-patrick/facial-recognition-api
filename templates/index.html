@@ -4,27 +4,16 @@
     <div class="flex w-full h-screen flex-col items-center justify-center">
         <div id="block-content" style="visibility: hidden;" class="w-full bg-gray-200 h-1 fixed top-20">
             <div class="bg-orange-400 h-1 progress" style="width: 2%; transition: .3s ease-in-out;"></div>
-        </div>
-        {% if audio_file != None %}
-        <div class="w-6/12 mb-4 mt-4 text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">            
-            <a href="/upload/{{ audio_file }}" class="relative inline-flex items-center w-full px-4 py-2 text-sm font-medium rounded-b-lg hover:bg-gray-100 hover:hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-orange-500 focus:text-orange-500 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white" download>
-                <svg class="w-4 h-4 mr-2 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 9.5A3.5 3.5 0 005.5 13H9v2.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 15.586V13h2.5a4.5 4.5 0 10-.616-8.958 4.002 4.002 0 10-7.753 1.977A3.5 3.5 0 002 9.5zm9 3.5H9V8a1 1 0 012 0v5z" clip-rule="evenodd"></path></svg>
-                {{ audio_file }}
-            </a>                
-        </div>
-        {% endif %}
-        {% include 'error.html' %}           
-        
+        </div>        
         <label class="w-6/12 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-orange-900">
             <svg class="w-8 h-8 mt-14" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                 <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
             </svg>
-            <span class="mt-2 text-base leading-normal m-14 text-orange-400" id="file_name">Select .mp3 or .wav file</span>
-            <input name="audiofile" id="audioupload" type="file" class="hidden" />
-            
+            <span class="mt-2 text-base leading-normal m-14 text-orange-400" id="file_name">Select an Image (.jpg, .png, .jpeg) to verify the person</span>
+            <input name="original" id="audioupload" type="file" class="hidden" />            
         </label>
-        <button type="submit" id="submit" class="bg-transparent m-14 w-auto hover:bg-orange-500 text-orange-700 font-semibold hover:text-white py-2 px-4 border border-orange-500 hover:border-transparent rounded">
-        Upload Audio
+        <button type="submit" id="submit" class="bg-transparent m-14 w-6/12 hover:bg-orange-500 text-orange-700 font-semibold hover:text-white py-2 px-4 border border-orange-500 hover:border-transparent rounded">
+        Verify
     </button>
     </div>     
     </form>
