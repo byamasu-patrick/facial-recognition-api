@@ -4,7 +4,7 @@ from flask_assets import Bundle, Environment
 from werkzeug.utils import secure_filename
 from time import sleep
 import traceback
-from facial_recognition import load_database, who_is_it, load_model, load_labels, write_labels
+from facial_recognition import load_database, who_is_it, load_model, load_labels, write_labels, verify
 
 app = Flask(__name__)
 
@@ -40,11 +40,13 @@ def home():
 def savedata():
     if request.method == "POST":
         try:
+            global FRmodel
+            global database  
             id_profile = request.files['id_picture']
             first_name = request.form.get("first_name")
             sir_name = request.form.get("sir_name")
             phone = request.form.get("phone")
-            file_name = first_name + " "+ sir_name
+            file_name = first_name.lower() + " "+ sir_name.lower()
             extension = secure_filename(id_profile.filename).split(".")[1]
             id_profile.filename = file_name +"."+ extension
             #print(secure_filename(id_profile.filename))
@@ -56,8 +58,7 @@ def savedata():
             id_profile.save(os.path.join(os.path.dirname(__file__), UPLOAD_IMAGE_PATH, secure_filename(id_profile.filename)))
             
             # who_is_it(file_dir, database, FRmodel)
-            global FRmodel
-            global database            
+                      
             FRmodel = load_model()
             database = load_database(FRmodel)
             
@@ -72,10 +73,16 @@ def upload():
     if request.method == "POST":
         try:
             data_file = request.files['original']
+            first_name = request.form.get("first_name")
+            sir_name = request.form.get("sir_name")
+            
+            person = first_name.lower() + " "+ sir_name.lower()
+            
             file_dir = os.path.join(os.path.dirname(__file__), UPLOAD_PATH, secure_filename(data_file.filename))
             data_file.save(os.path.join(os.path.dirname(__file__), UPLOAD_PATH, secure_filename(data_file.filename)))
             
-            who_is_it(file_dir, database, FRmodel)
+            # who_is_it(file_dir, database, FRmodel)
+            verify(file_dir, person, database, FRmodel)
             
             return redirect(url_for('index'))                    
         except Exception:
