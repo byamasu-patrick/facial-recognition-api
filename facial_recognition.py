@@ -71,15 +71,17 @@ def verify(image_path, identity, database, model):
     # Compute the encoding for the image. Use img_to_encoding() see example above. (≈ 1 line)
     encoding = img_to_encoding(image_path, model)
     # Compute distance with identity's image (≈ 1 line)
-    dist = np.linalg.norm(encoding - database[identity])
-    # Open the door if dist < 0.7, else don't open (≈ 3 lines)
-    if dist < 0.7:
-        print("It's " + str(identity) + ", welcome in!")
-        door_open = True
-    else:
-        print("It's not " + str(identity) + ", please go away")
-        door_open = False
-    return dist, door_open
+    if identity in database:        
+        dist = np.linalg.norm(encoding - database[identity])
+        # Open the door if dist < 0.7, else don't open (≈ 3 lines)
+        if dist < 0.7:
+            print("It's " + str(identity) + ", welcome in!")
+            door_open = True
+        else:
+            print("It's not " + str(identity) + ", please go away")
+            door_open = False
+        return dist, door_open
+    return (None, False)
 
 def who_is_it(image_path, database, model):   
 
