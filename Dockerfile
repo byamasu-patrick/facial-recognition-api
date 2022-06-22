@@ -9,7 +9,7 @@ RUN pip install -r requirements.txt
 
 COPY ./benefiary-reference ./benefiary-reference
 
-CMD ['python','./benefiary-reference/app.py']
+CMD ["python","./benefiary-reference/app.py"]
 
 # docker build -t beneficiary_reference .
 # pip freeze > requirements.txt
