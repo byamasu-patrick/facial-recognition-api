@@ -13,10 +13,11 @@ CORS(app, support_credentials=True)
 
 FRmodel = load_model()
 database = load_database(FRmodel)
+base_path = os.path.dirname(os.path.realpath(__file__)) 
 # app.config['data']
 # print(app.instance_path)
-UPLOAD_PATH = "benefiary-reference/database"
-UPLOAD_IMAGE_PATH = "benefiary-reference/images"
+UPLOAD_PATH = os.path.join(os.path.dirname(__file__), "benefiary-reference", "database")
+UPLOAD_IMAGE_PATH = os.path.join(os.path.dirname(__file__), "benefiary-reference", "images")
 MEDIA_FOLDER = os.path.join(os.path.dirname(__file__), "uploaded")
 os.makedirs(os.path.join(os.path.dirname(__file__), UPLOAD_PATH), exist_ok=True)
 

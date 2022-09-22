@@ -4,14 +4,16 @@ from tensorflow.keras.models import model_from_json
 from tensorflow.keras import backend as K
 K.set_image_data_format('channels_last')
 
+# https://www.tensorflow.org/install/pip
+
 def load_model():
     # Loading model data saved inside a json file
-    json_file = open('benefiary-reference/keras-facenet-h5/model.json', 'r')
+    json_file = open('keras-facenet-h5/model.json', 'r')
     loaded_model_json = json_file.read()
     json_file.close()
     # Convert the model from json model
     model = model_from_json(loaded_model_json)
-    model.load_weights('benefiary-reference/keras-facenet-h5/model.h5')
+    model.load_weights('keras-facenet-h5/model.h5')
     FRmodel = model
     return FRmodel
 
@@ -26,7 +28,7 @@ def img_to_encoding(image_path, model):
 
 def write_labels(new_user_info):
     # Writing data lebels
-    label = open("benefiary-reference/labels/database.txt", "a")  # append mode
+    label = open("labels/database.txt", "a")  # append mode
     label.write(new_user_info)    
     label.write("\n")
     label.close()
@@ -34,7 +36,7 @@ def write_labels(new_user_info):
     pass
 def load_labels():
     lines = -1
-    with open("benefiary-reference/labels/database.txt" , 'r') as f:
+    with open("labels/database.txt" , 'r') as f:
         lines = f.readlines() # readlines creates a list of the lines
     print(lines)
     return lines
@@ -45,7 +47,7 @@ def load_database(model):
     if len(data) >= 1:
         for user in data:
             user_arr = user.split(",")
-            database[(user_arr[0].lower() +" "+ user_arr[1].lower())] = img_to_encoding("benefiary-reference/images/"+ (user_arr[0].lower() +"_"+ user_arr[1].lower()) +"."+ user_arr[3].replace('\n', ''), model)
+            database[(user_arr[0].lower() +" "+ user_arr[1].lower())] = img_to_encoding("images/"+ (user_arr[0].lower() +"_"+ user_arr[1].lower()) +"."+ user_arr[3].replace('\n', ''), model)
         
     return database
 
