@@ -73,10 +73,10 @@ def verify(image_path, identity, database, model):
         dist = np.linalg.norm(encoding - database[identity])
         # Open the door if dist < 0.7, else don't open (≈ 3 lines)
         if dist < 0.7:
-            print("It's " + str(identity) + ", welcome in!")
+            print("It's " + str(identity) + ", welcome in! {}".format(dist))
             door_open = True
         else:
-            print("It's not " + str(identity) + ", please go away")
+            print("It's not " + str(identity) + ", please go away {}".format(dist))
             door_open = False
         return dist, door_open
     return (None, False)
