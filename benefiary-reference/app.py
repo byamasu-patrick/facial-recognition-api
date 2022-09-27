@@ -16,15 +16,16 @@ database = load_database(FRmodel)
 base_path = os.path.dirname(os.path.realpath(__file__)) 
 # app.config['data']
 # print(app.instance_path)
-UPLOAD_PATH = os.path.join(os.path.dirname(__file__), "benefiary-reference", "database")
-UPLOAD_IMAGE_PATH = os.path.join(os.path.dirname(__file__), "benefiary-reference", "images")
+print(os.path.dirname(__file__))
+UPLOAD_PATH = os.path.join(os.path.dirname(__file__), "database")
+UPLOAD_IMAGE_PATH = os.path.join(os.path.dirname(__file__), "images")
 MEDIA_FOLDER = os.path.join(os.path.dirname(__file__), "uploaded")
 os.makedirs(os.path.join(os.path.dirname(__file__), UPLOAD_PATH), exist_ok=True)
 
-def save(encoded_data, filename):
+def save(uri_data, filename):
+    encoded_data = uri_data.split(',')[1]
     nparr = np.fromstring(base64.b64decode(encoded_data), np.uint8)
-    img = cv2.imdecode(nparr, cv2.IMREAD_ANYCOLOR)
-    print(img)
+    img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
     return cv2.imwrite(filename, img)
 
 @app.route('/uploaddata', methods = ["POST"])
@@ -42,10 +43,10 @@ def savedata():
             file_name = first_name.lower() + "_"+ sir_name.lower() +".png"
             
             user_info = first_name + ","+ sir_name +","+ phone +",png"
-            
+            # print(id_profile)
             write_labels(user_info)
             
-            file_dir = os.path.join(os.path.dirname(__file__), UPLOAD_IMAGE_PATH, file_name)
+            file_dir = os.path.join(UPLOAD_IMAGE_PATH, file_name)
             save(id_profile, file_dir)
                       
             FRmodel = load_model()
