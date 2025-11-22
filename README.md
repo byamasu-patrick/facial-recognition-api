@@ -1,29 +1,58 @@
-# bf_facial_recognition_engine
+# **bf_facial_recognition_engine**
 
+This project is a facial recognition API built with **Flask**, designed to perform both facial **recognition** and **verification**. The system leverages **TensorFlow** and a **pretrained deep learning model** to execute the core recognition tasks.
 
-This is a facial recognition api developed in flask to run facial recognition and verification. 
+## **Model Architecture**
 
-The API was implemented using in flask as well as using tensorflow, a pretrained neural network architecture was used to implement the verification and recognition process. 
-The Convolution Neural Network Architecture implemented was the architecture developed and implemented by Google in 2019. The network is called FaceNet. So, in this project
-We use a pretrained model.
+The API uses **FaceNet**, a Convolutional Neural Network architecture developed by Google in 2019 for high-accuracy facial recognition. In this project, we use a **pretrained FaceNet model**, integrated through TensorFlow with a Keras backend.
 
-The tensorflow model is used with Keras backend. The pretrained model is found inside keras-facenet-h5 directory where you will find three important files, namely model.json, 
-model.h5 and facenet_keras.h5, these are the main important files that contains the hyperparameters for facial recognition process on a RGB Image. 
+The pretrained model files are located in the `keras-facenet-h5` directory. This folder contains three key files:
 
-Before running the api, make sure that Python 3.7 is installed in your PC and then run the folowing commands:
+* `model.json`
+* `model.h5`
+* `facenet_keras.h5`
 
-python -m pip install --upgrade pip ( for upgrading pip version to the latest version)
+These files define the core neural network architecture and contain the hyperparameters required to process and extract embeddings from RGB facial images.
 
-pip install -r requirements.txt ( this will install all the important libraries that are needed to run the project), before running this command make sure you are located in the
-bf_facial_recognition_engine directory and then run the command. After installing all the libraries, you then need to navigate to benefiary-reference folder where you will
-have to run the following command in order to run the project.
+## **Setup Instructions**
 
+Before running the API, ensure that **Python 3.7** is installed on your machine. Then follow the steps below:
+
+1. Upgrade pip:
+
+```
+python -m pip install --upgrade pip
+```
+
+2. Install all required dependencies:
+
+```
+pip install -r requirements.txt
+```
+
+Make sure you run this command from within the **bf_facial_recognition_engine** directory.
+
+3. After all dependencies are installed, navigate to the **beneficiary-reference** folder and start the API by running:
+
+```
 python app.py
+```
 
-This command will check if you have GPU in your laptop and if it is already confired. If you don't have tensorflow will just execute the code and run on CPU, but if it run on 
-CPU the performance of the api will also be slow, as such, the prefered way is to run it on GPU, before running it on GPU there are some few steps that you need to follow
-especially to configure tensorflow to be selecting automatically the GPU if it is installed and well configured. 
+## **GPU vs CPU Execution**
 
-For you to configure GPU, you need to install Cuda and cuDNN and tell tensorflow to use cuda when executing the code.
+When the application starts, it will automatically check whether your system has a properly configured GPU.
 
-If you need more information about how to run it GPU please contact the author of the code to help you setup your environment. Because running tensorflow on GPU is much faster than CPU
+* If **no GPU** is detected or configured, TensorFlow will default to running on the **CPU**.
+* CPU execution works but is significantly **slower**.
+* For optimal performance, running the model on a **GPU** is highly recommended.
+
+To enable GPU support, you must install and configure:
+
+* **CUDA**
+* **cuDNN**
+
+Once these are installed correctly, TensorFlow will automatically make use of the GPU during execution.
+
+## **Need Assistance?**
+
+If you require help configuring TensorFlow to run on the GPU, please contact the author of this codebase for guidance. Proper GPU configuration substantially improves the performance of facial recognition operations.
